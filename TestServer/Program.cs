@@ -1,3 +1,15 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿namespace TestServer
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            StaticUdpServer.RunServer();
+        }
 
-Console.WriteLine("Hello, World!");
+        async void AsyncMain(string[] args)
+        {
+            Console.WriteLine("Hello World!");
+        }
+    }
+}
