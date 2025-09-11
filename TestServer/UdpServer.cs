@@ -25,7 +25,6 @@ namespace TestServer
                     byte[] data = udpClient.Receive(ref remoteEndPoint);
                     
                     udpClient.Send(data, data.Length, remoteEndPoint);
-                    Console.WriteLine("Send message to client");
 
                     Console.WriteLine(Encoding.ASCII.GetString(data));
                 }
@@ -39,9 +38,29 @@ namespace TestServer
 
     class AsyncUdpServer
     {
-        async void RunServer()
+        public static async Task RunServer(int port)
         {
-            Console.WriteLine("HELLO");
+
+            using (var udpClient = new UdpClient(port)) 
+            {
+                while (true)
+                {
+                    try
+                    {
+                        UdpReceiveResult result = await udpClient.ReceiveAsync();
+                        string message = Encoding.UTF8.GetString(result.Buffer);
+
+                        Console.WriteLine($"received packet (message : {message})");
+
+                        await udpClient.SendAsync(result.Buffer, result.Buffer.Length, result.RemoteEndPoint);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine($"Runtime Exception(message : {e.Message})");
+                    }
+                }
+            }
+            
         }
     }
 }

@@ -69,7 +69,7 @@ namespace TestServer
 
     class AsyncTcpServer
     {
-        async void RunServer()
+        public static async Task RunServer()
         {
             Console.WriteLine("starting server ( 127.0.0.1 : 4200 )");
         }
