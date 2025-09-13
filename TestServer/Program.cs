@@ -1,4 +1,6 @@
-﻿namespace TestServer
+﻿using Server;
+
+namespace TestServer
 {
     class Program
     {
@@ -9,7 +11,8 @@
                 Console.WriteLine("\n1. Async UDP Server");
                 Console.WriteLine("2. Sync UDP Server");
                 Console.WriteLine("3. Async TCP Server");
-                Console.WriteLine("4. Sync TCP Server\n");
+                Console.WriteLine("4. Sync TCP Server");
+                Console.WriteLine("5. Async HTTP Server\n");
                 
                 ConsoleKeyInfo input = Console.ReadKey();
                 char option = input.KeyChar;
@@ -27,6 +30,9 @@
                         break;
                     case '4':
                         StaticTcpServer.RunServer();
+                        break;
+                    case '5':
+                        await AsyncHttpServer.RunServer();
                         break;
                 }
             }
